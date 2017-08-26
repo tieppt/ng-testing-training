@@ -9,7 +9,7 @@ describe('ContactService Mock', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [HttpTestingController, ContactService]
+      providers: [ContactService]
     });
   });
 
@@ -24,12 +24,13 @@ describe('ContactService Mock', () => {
       { name: 'Doe' }
     ];
     service.getContacts().subscribe((res: any[]) => {
+      // expect(res.length).toEqual(5);
       expect(res.length).toEqual(2);
       expect(res).toEqual(users);
-      const req = httpMock.expectOne('http://localhost:4200/assets/contact.json');
-      expect(req.request.method).toBe('GET');
-      req.flush(users);
     });
+    const req = httpMock.expectOne('http://localhost:4200/assets/contact.json');
+    expect(req.request.method).toBe('GET');
+    req.flush(users);
   });
 
   afterEach(() => {

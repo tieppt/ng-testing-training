@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ContactService } from './contact.service';
 
+import 'rxjs/add/operator/delay';
+
 describe('ContactService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,7 +25,8 @@ describe('ContactService', () => {
 
   xit('should has 1 item in list',
     async(inject([ContactService], (service: ContactService) => {
-      service.getContacts().subscribe((res: any[]) => {
+      service.getContacts()
+        .delay(1000).subscribe((res: any[]) => {
         expect(res.length).toEqual(1);
       });
     })));
